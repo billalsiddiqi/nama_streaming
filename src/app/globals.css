@@ -1,26 +1,186 @@
+
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --color-primary: #FF8000;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+
+
+@font-face {
+  font-family: 'Morabba';
+  src: url('../../public/fonts/Morabba-Black.woff2') format('woff2'),
+      url('../../public/fonts/Morabba-Black.woff') format('woff');
+  font-weight: 900;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Morabba';
+  src: url('../../public/fonts/Morabba-Bold.woff2') format('woff2'),
+      url('../../public/fonts/Morabba-Bold.woff') format('woff');
+  font-weight: bold;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Morabba';
+  src: url('../../public/fonts/Morabba-ExtraBold.woff2') format('woff2'),
+      url('../../public/fonts/Morabba-ExtraBold.woff') format('woff');
+  font-weight: bold;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Morabba';
+  src: url('../../public/fonts/Morabba-Light.woff2') format('woff2'),
+      url('../../public/fonts/Morabba-Light.woff') format('woff');
+  font-weight: 300;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Morabba';
+  src: url('../../public/fonts/Morabba-Heavy.woff2') format('woff2'),
+      url('../../public/fonts/Morabba-Heavy.woff') format('woff');
+  font-weight: 900;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Morabba';
+  src: url('../../public/fonts/Morabba-Regular.woff2') format('woff2'),
+      url('../../public/fonts/Morabba-Regular.woff') format('woff');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Morabba';
+  src: url('../../public/fonts/Morabba-UltraLight.woff2') format('woff2'),
+      url('../../public/fonts/Morabba-UltraLight.woff') format('woff');
+  font-weight: 200;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Morabba';
+  src: url('../../public/fonts/Morabba-SemiBold.woff2') format('woff2'),
+      url('../../public/fonts/Morabba-SemiBold.woff') format('woff');
+  font-weight: 600;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Morabba';
+  src: url('../../public/fonts/Morabba-Medium.woff2') format('woff2'),
+      url('../../public/fonts/Morabba-Medium.woff') format('woff');
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: morabba, sans-serif;
+  transition: all 300ms ease-out;
+  background-color: var(--color-background) !important;
 }
+
+#nprogress {
+  pointer-events: none;
+}
+#nprogress .bar {
+  background: #000;
+  position: fixed;
+  z-index: 1031;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 3px;
+}
+#nprogress .peg {
+  display: block;
+  position: absolute;
+  right: 0px;
+  width: 100px;
+  height: 100%;
+  opacity: 1.0;
+  transform: rotate(3deg) translate(0px, -4px);
+}
+
+/* Page transition styles */
+.transition-active {
+  --transition-duration: 300ms;
+}
+
+.transition-active body {
+  overflow: hidden;
+}
+
+.transition-active::before {
+  content: '';
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: white;
+  z-index: 9999;
+  opacity: 0;
+  transition: opacity var(--transition-duration) ease;
+  pointer-events: none;
+}
+
+.transition-active.transition-start::before {
+  opacity: 1;
+}
+.transition-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: white;
+  z-index: 9999;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s ease;
+}
+
+.transition-overlay.active {
+  opacity: 1;
+}
+
+/* Progress bar (optional) */
+#nprogress {
+  pointer-events: none;
+  z-index: 10000;
+}
+
+#footer-nav{
+  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+}
+
+/* Custom Scrollbar */
+.scrollbar-thin::-webkit-scrollbar {
+  height: 6px;
+}
+.scrollbar-thin::-webkit-scrollbar-track {
+  background: transparent;
+}
+.scrollbar-thin::-webkit-scrollbar-thumb {
+  background-color: #525252;
+  border-radius: 4px;
+}
+
