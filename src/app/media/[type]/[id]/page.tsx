@@ -1,23 +1,19 @@
+import { notFound } from "next/navigation";
 import HeroSection from "@/components/MediaHeroSection";
 import OverviewSection from "@/components/OverviewSection";
 import InfoPanel from "@/components/InfoPanel";
 import CastList from "@/components/CastList";
 import SuggestionGrid from "@/components/SuggestionGrid";
-import { notFound } from "next/navigation";
 import MediaDetailHeader from "@/components/MediaDetailsHeader";
 import Footer from "@/components/Footer";
 import MobileBottomNav from "@/components/MobileBottomNav";
 
-type Props = {
-  params: {
-    type: string;
-    id: string;
-  };
-};
-
-export default async function MediaDetailsPage(props: Props) {
+export default async function MediaDetailsPage(props: {
+  readonly params: Record<string, string>;
+}) {
   const { type, id } = props.params;
 
+  // Guard clause
   if (type !== "movie" && type !== "tv") return notFound();
 
   const [resDetails, resCredits, resRecs] = await Promise.all([
@@ -44,7 +40,7 @@ export default async function MediaDetailsPage(props: Props) {
   return (
     <div className="mb-20 md:mb-0 bg-black min-h-screen">
       <MediaDetailHeader />
-      <main className="p-0 md:pb-10">
+      <main className="p-0 md:py-10">
         <HeroSection
           backdrop={data.backdrop_path || data.poster_path}
           title={data.title || data.name || "بدون عنوان"}
