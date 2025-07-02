@@ -8,22 +8,27 @@ import MediaDetailHeader from "@/components/MediaDetailsHeader";
 import Footer from "@/components/Footer";
 import MobileBottomNav from "@/components/MobileBottomNav";
 
-interface MediaDetailsPageProps  {
-  params: {
-    type: "movie" | "tv";
-    id: string;
-  };
-}
-
-export default async function MediaDetailsPage({ params }: MediaDetailsPageProps ) {
+export default async function MediaDetailsPage(props: {
+  params: { type: "movie" | "tv"; id: string };
+}) {
+  const { params } = await props;
   const { type, id } = params;
 
   if (type !== "movie" && type !== "tv") return notFound();
 
   const [resDetails, resCredits, resRecs] = await Promise.all([
-    fetch(`https://api.themoviedb.org/3/${type}/${id}?api_key=${process.env.NEXT_PUBLIC_TMDB_API_KEY}&language=fa-IR`, { cache: "no-store" }),
-    fetch(`https://api.themoviedb.org/3/${type}/${id}/credits?api_key=${process.env.NEXT_PUBLIC_TMDB_API_KEY}&language=fa-IR`, { cache: "no-store" }),
-    fetch(`https://api.themoviedb.org/3/${type}/${id}/recommendations?api_key=${process.env.NEXT_PUBLIC_TMDB_API_KEY}&language=fa-IR`, { cache: "no-store" })
+    fetch(
+      `https://api.themoviedb.org/3/${type}/${id}?api_key=${process.env.NEXT_PUBLIC_TMDB_API_KEY}&language=fa-IR`,
+      { cache: "no-store" }
+    ),
+    fetch(
+      `https://api.themoviedb.org/3/${type}/${id}/credits?api_key=${process.env.NEXT_PUBLIC_TMDB_API_KEY}&language=fa-IR`,
+      { cache: "no-store" }
+    ),
+    fetch(
+      `https://api.themoviedb.org/3/${type}/${id}/recommendations?api_key=${process.env.NEXT_PUBLIC_TMDB_API_KEY}&language=fa-IR`,
+      { cache: "no-store" }
+    ),
   ]);
 
   if (!resDetails.ok) return notFound();
@@ -35,7 +40,7 @@ export default async function MediaDetailsPage({ params }: MediaDetailsPageProps
   return (
     <div className="mb-20 md:mb-0 bg-black min-h-screen">
       <MediaDetailHeader />
-      <main className="p-0 md:py-10">
+      <main className="p-0 md:pb-10">
         <HeroSection
           backdrop={data.backdrop_path || data.poster_path}
           title={data.title || data.name || "بدون عنوان"}
