@@ -1,6 +1,5 @@
 'use client';
 
-import FilterBar from "@/components/FilterBar";
 import Footer from "@/components/Footer";
 import Header from "@/components/Header";
 import MobileBottomNav from "@/components/MobileBottomNav";
@@ -63,13 +62,6 @@ export default function TVShowsPage() {
           <Header />
       </div>
       <main className="px-4 md:px-8 py-10">
-        <FilterBar
-          search={search}
-          onSearch={setSearch}
-          filters={filters}
-          onFilterChange={setFilters}
-          type="tv"
-        />
         <h1 className="text-white text-2xl md:text-3xl font-bold mb-6">📺 سریال‌ها</h1>
         <MediaGrid items={shows} loading={loading} type="tv" />
         {hasMore && (

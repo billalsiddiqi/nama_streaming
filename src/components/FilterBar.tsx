@@ -1,5 +1,3 @@
-import { useEffect, useState } from "react";
-
 interface FilterBarProps {
   search: string;
   onSearch: (value: string) => void;

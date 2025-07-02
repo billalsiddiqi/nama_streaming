@@ -1,7 +1,6 @@
 import Footer from "@/components/Footer";
 import GenreList from "@/components/GenreList";
 import Header from "@/components/Header";
-import Hero from "@/components/Hero";
 import MobileBottomNav from "@/components/MobileBottomNav";
 
 

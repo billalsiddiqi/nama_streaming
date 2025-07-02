@@ -1,7 +1,6 @@
 'use client';
 
 import { useEffect, useState } from "react";
-import FilterBar from "../../components/FilterBar";
 import MediaGrid from "../../components/MediaGrid";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
@@ -73,13 +72,6 @@ export default function MoviesPage() {
             <Header />
         </div>
         <main className=" px-4 md:px-8 py-10 bg-black min-h-screen">
-        <FilterBar
-            search={search}
-            onSearch={setSearch}
-            filters={filters}
-            onFilterChange={setFilters}
-            type="movie"
-            />
         <h1 className="text-white text-2xl md:text-3xl font-bold my-10">🎬 فیلم‌ها</h1>
         <MediaGrid items={movies} loading={loading} type="movie" />
         {hasMore && (

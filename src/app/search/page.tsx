@@ -6,7 +6,6 @@ import Image from 'next/image';
 import Link from 'next/link';
 import axios from 'axios';
 import Header from '@/components/Header';
-import Footer from '@/components/Footer';
 
 type Movie = {
   id: number;
