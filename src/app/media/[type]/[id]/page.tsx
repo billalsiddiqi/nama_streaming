@@ -8,14 +8,14 @@ import MediaDetailHeader from "@/components/MediaDetailsHeader";
 import Footer from "@/components/Footer";
 import MobileBottomNav from "@/components/MobileBottomNav";
 
-interface PageProps {
+interface MediaDetailsPageProps  {
   params: {
     type: "movie" | "tv";
     id: string;
   };
 }
 
-export default async function MediaDetailsPage({ params }: PageProps) {
+export default async function MediaDetailsPage({ params }: MediaDetailsPageProps ) {
   const { type, id } = params;
 
   if (type !== "movie" && type !== "tv") return notFound();
