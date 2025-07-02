@@ -8,25 +8,29 @@ import MediaDetailHeader from "@/components/MediaDetailsHeader";
 import Footer from "@/components/Footer";
 import MobileBottomNav from "@/components/MobileBottomNav";
 
-export default async function MediaDetailsPage({
-  params,
-}: {
-  params: { type: string; id: string };
-}) {
-  // Validate type
-  if (params.type !== "movie" && params.type !== "tv") return notFound();
+type Props = {
+  params: {
+    type: string;
+    id: string;
+  };
+};
+
+export default async function MediaDetailsPage(props: Props) {
+  const { type, id } = props.params;
+
+  if (type !== "movie" && type !== "tv") return notFound();
 
   const [resDetails, resCredits, resRecs] = await Promise.all([
     fetch(
-      `https://api.themoviedb.org/3/${params.type}/${params.id}?api_key=${process.env.NEXT_PUBLIC_TMDB_API_KEY}&language=fa-IR`,
+      `https://api.themoviedb.org/3/${type}/${id}?api_key=${process.env.NEXT_PUBLIC_TMDB_API_KEY}&language=fa-IR`,
       { cache: "no-store" }
     ),
     fetch(
-      `https://api.themoviedb.org/3/${params.type}/${params.id}/credits?api_key=${process.env.NEXT_PUBLIC_TMDB_API_KEY}&language=fa-IR`,
+      `https://api.themoviedb.org/3/${type}/${id}/credits?api_key=${process.env.NEXT_PUBLIC_TMDB_API_KEY}&language=fa-IR`,
       { cache: "no-store" }
     ),
     fetch(
-      `https://api.themoviedb.org/3/${params.type}/${params.id}/recommendations?api_key=${process.env.NEXT_PUBLIC_TMDB_API_KEY}&language=fa-IR`,
+      `https://api.themoviedb.org/3/${type}/${id}/recommendations?api_key=${process.env.NEXT_PUBLIC_TMDB_API_KEY}&language=fa-IR`,
       { cache: "no-store" }
     ),
   ]);
@@ -62,7 +66,7 @@ export default async function MediaDetailsPage({
 
         <CastList cast={credits.cast?.slice(0, 10) || []} />
 
-        <SuggestionGrid items={(recs.results || []).slice(0, 6)} type={params.type} />
+        <SuggestionGrid items={(recs.results || []).slice(0, 6)} type={type} />
       </main>
       <Footer />
       <MobileBottomNav />
