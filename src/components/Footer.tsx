@@ -3,7 +3,7 @@ import Image from 'next/image'
 
 export default function Footer() {
     return (
-      <footer className="hidden md:block  text-gray-400 mt-20 pt-12 pb-6 border-t border-zinc-700">
+      <footer className="hidden md:block bg-black text-gray-400 pt-12 mt-20 pb-6 border-t border-zinc-700">
         <div className="container mx-auto px-4">
           <div className="flex justify-between items-start">
             {/* Logo and Description */}

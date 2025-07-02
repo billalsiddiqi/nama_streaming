@@ -1,51 +1,73 @@
 'use client';
 
 import Image from 'next/image';
+import { motion } from 'framer-motion';
+import { useState } from 'react';
 
 export default function Hero() {
+  const [isHovered, setIsHovered] = useState(false);
+
   return (
-    <section className="relative w-full md:max-h-[65vh] h-[60lvh] overflow-hidden text-white rtl">
-      {/* Background image */}
-      <div className="absolute inset-0 z-0">
+    <section className="relative w-full h-[70vh] md:h-[80vh] overflow-hidden text-white rtl">
+      {/* Background image with subtle parallax */}
+      <motion.div
+        className="absolute inset-0 z-0"
+        animate={{ scale: isHovered ? 1.05 : 1 }}
+        transition={{ duration: 0.5 }}
+        onMouseEnter={() => setIsHovered(true)}
+        onMouseLeave={() => setIsHovered(false)}
+      >
         <Image
-          src="/bg.webp" 
-          alt="Hero background"
+          src="/bg.webp"
+          alt="Cinematic streaming background"
           fill
           className="object-cover"
           placeholder="blur"
-          blurDataURL="/tiny-blur.jpg"
+          blurDataURL="/tiny-blur-cinematic.jpg"
           priority
         />
-      </div>
+      </motion.div>
 
-      {/* Right-to-left gradient overlay */}
-      <div className="absolute inset-0 bg-gradient-to-l from-black/90 via-black/60 to-transparent z-10" />
+      {/* Gradient overlay with refined opacity */}
+      <div className="absolute inset-0 bg-gradient-to-l from-black/85 via-black/50 to-transparent z-10" />
 
       {/* Content */}
-      <div className="relative z-20 h-full flex items-center justify-start px-4 sm:px-6 md:px-12 max-w-screen-xl mx-auto">
-        <div className="text-right w-full sm:max-w-md">
-          <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold leading-snug mb-4">
+      <div className="relative z-20 h-full flex items-center justify-start px-4 sm:px-8 md:px-16 max-w-screen-2xl mx-auto">
+        <motion.div
+          className="text-right max-w-lg md:max-w-xl"
+          initial={{ opacity: 0, y: 50 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, ease: 'easeOut' }}
+        >
+          <h1 className="text-4xl sm:text-5xl md:text-6xl font-extrabold leading-tight mb-6 tracking-tight">
             به نما خوش آمدید
           </h1>
-          <p className="text-sm sm:text-base md:text-lg text-gray-300 mb-6">
-            از تماشای فیلم‌ها و سریال‌های اختصاصی لذت ببرید. هم‌اکنون با اشتراک ماهانه
-            شروع کنید. لغو در هر زمان امکان‌پذیر است.
+          <p className="text-base sm:text-lg md:text-xl text-gray-200 mb-8 leading-relaxed">
+            تجربه‌ای بی‌نظیر از تماشای فیلم‌ها و سریال‌های اختصاصی. همین حالا اشتراک خود را شروع کنید و هر زمان که خواستید لغو کنید.
           </p>
 
-          {/* Buttons */}
+          {/* Buttons with hover animations */}
           <div className="flex flex-col sm:flex-row gap-4 w-full sm:w-auto">
-            <button className="bg-white text-black px-6 py-3 rounded hover:bg-gray-200 transition font-semibold">
+            <motion.button
+              className="bg-red-600 text-white px-8 py-3 rounded-md hover:bg-red-700 transition-all font-semibold text-base shadow-lg"
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+            >
               عضو نما هستید؟ وارد شوید
-            </button>
-            <button className="bg-transparent border border-white text-white px-6 py-3 rounded hover:bg-white hover:text-black transition font-semibold">
+            </motion.button>
+            <motion.button
+              className="bg-transparent border-2 border-white text-white px-8 py-3 rounded-md hover:bg-white hover:text-black transition-all font-semibold text-base shadow-lg"
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+            >
               شروع اشتراک رایگان
-            </button>
+            </motion.button>
           </div>
 
-          <p className="text-xs text-gray-400 mt-4">
+          <p className="text-xs md:text-sm text-gray-400 mt-6">
             اشتراک ماهانه پس از پایان دوره رایگان، به‌طور خودکار تمدید می‌شود.
           </p>
-        </div>
+        </motion.div>
       </div>
     </section>
   );
