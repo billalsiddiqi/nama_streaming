@@ -1,11 +1,6 @@
-import dynamic from "next/dynamic";
 import { Suspense } from "react";
 import Header from "@/components/Header";
-
-// Dynamically import the Client Component
-const SearchResults = dynamic(() => import("./SearchResults"), {
-  ssr: false, // Make sure it's client-side only
-});
+import SearchResults from "./SearchResults";
 
 export default function SearchPage() {
   return (
