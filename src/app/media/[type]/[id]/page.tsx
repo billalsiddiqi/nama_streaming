@@ -8,12 +8,9 @@ import MediaDetailHeader from "@/components/MediaDetailsHeader";
 import Footer from "@/components/Footer";
 import MobileBottomNav from "@/components/MobileBottomNav";
 
-export default async function MediaDetailsPage(props: {
-  readonly params: Record<string, string>;
-}) {
+export default async function MediaDetailsPage(props: any) {
   const { type, id } = props.params;
 
-  // Guard clause
   if (type !== "movie" && type !== "tv") return notFound();
 
   const [resDetails, resCredits, resRecs] = await Promise.all([
@@ -40,7 +37,7 @@ export default async function MediaDetailsPage(props: {
   return (
     <div className="mb-20 md:mb-0 bg-black min-h-screen">
       <MediaDetailHeader />
-      <main className="p-0 md:py-10">
+      <main className="p-0 md:pb-10">
         <HeroSection
           backdrop={data.backdrop_path || data.poster_path}
           title={data.title || data.name || "بدون عنوان"}
