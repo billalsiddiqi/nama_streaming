@@ -5,8 +5,12 @@
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --color-primary: #FF8000;
-  --color-lightest: #FFE0B3;
+  --color-primary: #FFCB05;
+  --color-secondary: #4D8AF0;
+  --color-light-text: #D1D6E0;
+  --color-dark-text: #1C2233;
+  --color-dark-background: #1C2233;
+  --color-light-background: #D1D6E0;
   --color-lighter: #FFB366;
   --color-light: #FF9933;
   --color-dark: #CC6600;
@@ -18,7 +22,6 @@
   --color-warning: #FF3333;
   --color-highlight: #FFD000;
   --color-warning: #FF3333;
-  --color-background: #333333;
   --color-text: #F5F5F5;
 }
 

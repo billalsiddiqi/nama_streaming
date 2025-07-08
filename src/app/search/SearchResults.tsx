@@ -2,32 +2,52 @@
 
 import { useSearchParams } from 'next/navigation';
 import { useEffect, useState } from 'react';
-import Image from 'next/image';
-import Link from 'next/link';
-import axios from 'axios';
+import MediaGrid from '@/components/MediaGrid';
 
-type Movie = {
+interface MediaItem {
   id: number;
   title: string;
   title_fa: string;
-  cover_image: string;
-  embed_url: string;
-};
+  cover_image_url: string;
+  embed_url: null;
+}
 
 export default function SearchResults() {
   const searchParams = useSearchParams();
   const query = searchParams.get('query') || '';
-  const [movies, setMovies] = useState<Movie[]>([]);
+  const [movies, setMovies] = useState<MediaItem[]>([]);
+  const [tvShows, setTvShows] = useState<MediaItem[]>([]);
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     if (!query) return;
-
     setLoading(true);
-    axios
-      .get(`http://nama.test/api/movies?search=${query}`)
-      .then((res) => {
-        setMovies(res.data.data);
+
+    fetch(
+      `https://api.themoviedb.org/3/search/multi?api_key=${process.env.NEXT_PUBLIC_TMDB_API_KEY}&language=fa-IR&query=${encodeURIComponent(query)}`
+    )
+      .then((res) => res.json())
+      .then((data) => {
+        const validResults = (data.results || []).filter(
+          (item: any) => (item.media_type === 'movie' || item.media_type === 'tv') && item.poster_path
+        );
+
+        console.log('Valid results:', validResults);
+
+        const normalized = validResults.map((item: any) => ({
+          id: item.id,
+          title: item.title || item.name || 'بدون عنوان',
+          title_fa: item.title || item.name || 'بدون عنوان',
+          poster_path: item.poster_path, // 👈 ADD THIS LINE
+          cover_image_url: `https://image.tmdb.org/t/p/w500${item.poster_path}`,
+          embed_url: null,
+          media_type: item.media_type,
+        }));
+
+
+        console.log('Normalized results:', normalized);
+        setMovies(normalized.filter((item: any) => item.media_type === 'movie'));
+        setTvShows(normalized.filter((item: any) => item.media_type === 'tv'));
       })
       .finally(() => setLoading(false));
   }, [query]);
@@ -40,34 +60,27 @@ export default function SearchResults() {
 
       {loading ? (
         <div className="text-center text-lg mt-20">در حال بارگذاری...</div>
-      ) : movies.length === 0 ? (
-        <div className="text-center text-lg mt-20 text-gray-400">
-          هیچ فیلمی یافت نشد.
-        </div>
       ) : (
-        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 xl:grid-cols-6 gap-4">
-          {movies.map((movie) => (
-            <div
-              key={movie.id}
-              className="relative group overflow-hidden rounded-lg shadow-lg cursor-pointer transition-transform transform hover:scale-105"
-            >
-              <Link href={`/movies/${movie.id}`}>
-                <Image
-                  src={movie.cover_image}
-                  alt={movie.title_fa}
-                  width={500}
-                  height={750}
-                  className="object-cover w-full h-full rounded-lg"
-                  loading="lazy"
-                />
-                <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black via-transparent to-transparent px-2 py-1">
-                  <h2 className="text-sm sm:text-base font-semibold truncate text-white">
-                    {movie.title_fa || movie.title}
-                  </h2>
-                </div>
-              </Link>
+        <div className="space-y-12">
+          {movies.length > 0 && (
+            <div>
+              <h2 className="text-xl font-semibold mb-4">🎬 فیلم‌ها</h2>
+              <MediaGrid items={movies} loading={false} type="movie" />
             </div>
-          ))}
+          )}
+
+          {tvShows.length > 0 && (
+            <div>
+              <h2 className="text-xl font-semibold mb-4">📺 سریال‌ها</h2>
+              <MediaGrid items={tvShows} loading={false} type="tv" />
+            </div>
+          )}
+
+          {movies.length === 0 && tvShows.length === 0 && (
+            <div className="text-center text-lg mt-20 text-gray-400">
+              نتیجه‌ای یافت نشد.
+            </div>
+          )}
         </div>
       )}
     </>

@@ -50,6 +50,10 @@ export default function GenreRow({ genre, isFeatured = false }: Props) {
     const timer = setTimeout(() => setIsLoading(false), 1000);
     return () => clearTimeout(timer);
   }, [items]);
+  
+  useEffect(() => {
+    console.log("Genre in row:", genre);
+  }, []);
 
   return (
     <section className={`px-4 md:px-8 ${isFeatured ? "pt-10 pb-4" : ""}`}>

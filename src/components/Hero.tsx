@@ -1,73 +1,76 @@
-'use client';
-
 import Image from 'next/image';
-import { motion } from 'framer-motion';
-import { useState } from 'react';
 
 export default function Hero() {
-  const [isHovered, setIsHovered] = useState(false);
+  const dummyMovie = {
+    title: 'جوکر',
+    overview:
+      'آرتور فلک، دلقکی که در فقر زندگی می‌کند، همراه با مادر بیمارش روزگار می‌گذراند. جامعه او را طرد می‌کند و لقب دیوانه به او می‌دهد. او تصمیم می‌گیرد به مسیر جرم و جنون روی بیاورد.',
+    release_date: '2019-10-02',
+    backdrop_path: '/n6bUvigpRFqSwmPp1m2YADdbRBc.jpg',
+    vote_average: 8.4,
+    genres: ['جنایی', 'درام', 'هیجانی'],
+    rotten_tomatoes: 68,
+  };
+
+  const releaseYear = new Date(dummyMovie.release_date).getFullYear();
 
   return (
-    <section className="relative w-full h-[70vh] md:h-[80vh] overflow-hidden text-white rtl">
-      {/* Background image with subtle parallax */}
-      <motion.div
-        className="absolute inset-0 z-0"
-        animate={{ scale: isHovered ? 1.05 : 1 }}
-        transition={{ duration: 0.5 }}
-        onMouseEnter={() => setIsHovered(true)}
-        onMouseLeave={() => setIsHovered(false)}
-      >
+    <section className="relative w-full h-[100svh] text-white overflow-hidden" dir="rtl">
+      {/* Background Image */}
+      <div className="absolute inset-0 z-0">
         <Image
-          src="/bg.webp"
-          alt="Cinematic streaming background"
+          src={`https://image.tmdb.org/t/p/original${dummyMovie.backdrop_path}`}
+          alt={dummyMovie.title}
           fill
-          className="object-cover"
-          placeholder="blur"
-          blurDataURL="/tiny-blur-cinematic.jpg"
+          className="object-cover object-center opacity-60"
           priority
         />
-      </motion.div>
+        <div className="absolute inset-0 bg-gradient-to-l from-black via-black/80 to-transparent" />
+      </div>
 
-      {/* Gradient overlay with refined opacity */}
-      <div className="absolute inset-0 bg-gradient-to-l from-black/85 via-black/50 to-transparent z-10" />
-
-      {/* Content */}
-      <div className="relative z-20 h-full flex items-center justify-start px-4 sm:px-8 md:px-16 max-w-screen-2xl mx-auto">
-        <motion.div
-          className="text-right max-w-lg md:max-w-xl"
-          initial={{ opacity: 0, y: 50 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, ease: 'easeOut' }}
-        >
-          <h1 className="text-4xl sm:text-5xl md:text-6xl font-extrabold leading-tight mb-6 tracking-tight">
-            به نما خوش آمدید
-          </h1>
-          <p className="text-base sm:text-lg md:text-xl text-gray-200 mb-8 leading-relaxed">
-            تجربه‌ای بی‌نظیر از تماشای فیلم‌ها و سریال‌های اختصاصی. همین حالا اشتراک خود را شروع کنید و هر زمان که خواستید لغو کنید.
-          </p>
-
-          {/* Buttons with hover animations */}
-          <div className="flex flex-col sm:flex-row gap-4 w-full sm:w-auto">
-            <motion.button
-              className="bg-red-600 text-white px-8 py-3 rounded-md hover:bg-red-700 transition-all font-semibold text-base shadow-lg"
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
+      {/* Foreground Content */}
+      <div className="relative z-10 mx-auto px-8 py-20 flex flex-col justify-center h-full text-right">
+        {/* Genres */}
+        <div className="mb-4 flex gap-2 flex-wrap justify-start">
+          {dummyMovie.genres.map((genre) => (
+            <span
+              key={genre}
+              className="bg-primary text-dark-text text-xs px-2 py-1 rounded-md tracking-wider"
             >
-              عضو نما هستید؟ وارد شوید
-            </motion.button>
-            <motion.button
-              className="bg-transparent border-2 border-white text-white px-8 py-3 rounded-md hover:bg-white hover:text-black transition-all font-semibold text-base shadow-lg"
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
-            >
-              شروع اشتراک رایگان
-            </motion.button>
+              {genre}
+            </span>
+          ))}
+        </div>
+
+        {/* Title and Meta */}
+        <h1 className="text-4xl md:text-6xl font-extrabold drop-shadow-lg">
+          {dummyMovie.title}
+        </h1>
+        <p className="text-lg mt-1">{releaseYear}</p>
+
+        {/* Description */}
+        <p className="max-w-2xl text-gray-200 mt-4 text-sm md:text-base leading-loose line-clamp-4">
+          {dummyMovie.overview}
+        </p>
+
+        {/* Ratings and Date */}
+        <div className="flex items-center gap-6 mt-6 text-sm flex-wrap justify-start">
+          <div className="flex items-center gap-2">
+            <Image src="/imdb.png" alt="IMDb" width={40} height={26} />
+            <span>{dummyMovie.vote_average.toFixed(1)}/10</span>
           </div>
+          <div>📅 {new Date(dummyMovie.release_date).toLocaleDateString('fa-IR')}</div>
+        </div>
 
-          <p className="text-xs md:text-sm text-gray-400 mt-6">
-            اشتراک ماهانه پس از پایان دوره رایگان، به‌طور خودکار تمدید می‌شود.
-          </p>
-        </motion.div>
+        {/* Buttons */}
+        <div className="mt-8 flex gap-4 flex-wrap justify-start">
+          <button className="bg-primary hover:bg-secondary text-dark-text cursor-pointer px-6 py-2 rounded-md font-semibold">
+             ▶ پخش
+          </button>
+          <button className="bg-light-background text-black cursor-pointer px-6 py-2 rounded-md font-semibold hover:bg-gray-200">
+            🎬 تماشای تریلر
+          </button>
+        </div>
       </div>
     </section>
   );

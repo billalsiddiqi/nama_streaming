@@ -1,6 +1,6 @@
 'use client'
 
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { Search, Menu, X } from 'lucide-react'
 import Image from 'next/image'
 import SearchModal from './SearchModal'
@@ -9,26 +9,40 @@ import Link from 'next/link'
 export default function Header() {
   const [searchOpen, setSearchOpen] = useState(false)
   const [menuOpen, setMenuOpen] = useState(false)
+  const [scrolled, setScrolled] = useState(false)
+
+  useEffect(() => {
+    const handleScroll = () => {
+      setScrolled(window.scrollY > 20)
+    }
+
+    window.addEventListener('scroll', handleScroll)
+    return () => window.removeEventListener('scroll', handleScroll)
+  }, [])
 
   return (
-    <header className="bg-black text-white w-full px-8 py-6 flex items-center justify-between fixed right-0 top-0 z-50 shadow-lg rtl">
+    <header
+      className={`fixed right-0 top-0 z-50 w-full px-8 py-2 flex items-center justify-between transition-colors duration-300 rtl ${
+        scrolled ? 'bg-black/80 backdrop-blur-md shadow-md' : 'bg-transparent'
+      }`}
+    >
       {/* Logo */}
       <div className="text-xl font-bold">
         <Link href="/">
           <Image
-            src="/nama.svg"
-            alt="NAMA Logo"
-            width={60}
-            height={60}
+            src="/aseman+.svg"
+            alt="Aseman+ Logo"
+            width={120}
+            height={120}
             className="object-contain hover:scale-105 transition-transform"
           />
         </Link>
       </div>
 
       {/* Navigation Menu */}
-      <nav className="hidden md:flex items-center space-x-6">
-        <Link href="/movies" className="hover:text-red-600 transition-colors">فیلم‌ها</Link>
-        <Link href="/series" className="hover:text-red-600 transition-colors">سریال‌ها</Link>
+      <nav className="hidden md:flex text-light-text items-center space-x-6">
+        <Link href="/movies" className="hover:text-primary transition-colors">فیلم‌ها</Link>
+        <Link href="/series" className="hover:text-primary transition-colors">سریال‌ها</Link>
       </nav>
 
       {/* Mobile Menu Button */}
@@ -40,9 +54,9 @@ export default function Header() {
 
       {/* Mobile Menu */}
       {menuOpen && (
-        <div className="md:hidden absolute top-full left-0 w-full bg-black/95 py-4 px-4 space-y-4 z-40">
-          <Link href="/series" className="block hover:text-red-600 transition-colors">سریال‌ها</Link>
-          <Link href="/movies" className="block hover:text-red-600 transition-colors">فیلم‌ها</Link>
+        <div className="md:hidden absolute text-light-text top-full left-0 w-full bg-black/95 py-4 px-4 space-y-4 z-40">
+          <Link href="/series" className="block hover:text-primary transition-colors">سریال‌ها</Link>
+          <Link href="/movies" className="block hover:text-primary transition-colors">فیلم‌ها</Link>
         </div>
       )}
 
@@ -50,7 +64,7 @@ export default function Header() {
       <div className="relative">
         <button
           onClick={() => setSearchOpen(true)}
-          className="bg-gradient-to-r from-primary to-darker text-white p-2 rounded-full hover:scale-110 focus:outline-none focus:ring-2 focus:ring-red-600 transition-all shadow-lg"
+          className="bg-light-text text-dark-text p-2 rounded-full hover:scale-110 focus:outline-none focus:ring-2 focus:ring-primary cursor-pointer transition-all shadow-lg"
           aria-label="Open search modal"
         >
           <Search size={20} />
