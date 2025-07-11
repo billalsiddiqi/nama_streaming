@@ -51,10 +51,6 @@ export default function GenreRow({ genre, isFeatured = false }: Props) {
     return () => clearTimeout(timer);
   }, [items]);
   
-  useEffect(() => {
-    console.log("Genre in row:", genre);
-  }, []);
-
   return (
     <section className={`px-4 md:px-8 ${isFeatured ? "pt-10 pb-4" : ""}`}>
       <div className="flex flex-col sm:flex-row items-center justify-between mb-4 gap-3 sm:gap-0">

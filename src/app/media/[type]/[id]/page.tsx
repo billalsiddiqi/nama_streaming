@@ -1,40 +1,35 @@
 import { notFound } from "next/navigation";
-import HeroSection from "@/components/MediaHeroSection";
-import OverviewSection from "@/components/OverviewSection";
-import InfoPanel from "@/components/InfoPanel";
-import CastList from "@/components/CastList";
-import SuggestionGrid from "@/components/SuggestionGrid";
+import HeroSection from "@/components/mediaDetails/MediaHeroSection";
+import OverviewSection from "@/components/mediaDetails/OverviewSection";
+import InfoPanel from "@/components/mediaDetails/InfoPanel";
+import CastList from "@/components/mediaDetails/CastList";
+import SuggestionGrid from "@/components/mediaDetails/SuggestionGrid";
 import MediaDetailHeader from "@/components/MediaDetailsHeader";
 import Footer from "@/components/Footer";
 import MobileBottomNav from "@/components/MobileBottomNav";
+import {
+  fetchMediaDetails,
+  fetchMediaCredits,
+  fetchMediaRecommendations,
+  fetchMediaVideos,
+  fetchTVSeasonMeta,
+  fetchTVSeasonEpisodes
+} from "@/lib/tmdb";
 
 export default async function MediaDetailsPage(props: any) {
   const { type, id } = props.params;
 
   if (type !== "movie" && type !== "tv") return notFound();
 
+  const apiKey = process.env.NEXT_PUBLIC_TMDB_API_KEY ?? "";
+
   const [resDetails, resCredits, resRecs, resVideos, resSeasons] = await Promise.all([
-    fetch(
-      `https://api.themoviedb.org/3/${type}/${id}?api_key=${process.env.NEXT_PUBLIC_TMDB_API_KEY}&language=fa-IR`,
-      { cache: "no-store" }
-    ),
-    fetch(
-      `https://api.themoviedb.org/3/${type}/${id}/credits?api_key=${process.env.NEXT_PUBLIC_TMDB_API_KEY}&language=fa-IR`,
-      { cache: "no-store" }
-    ),
-    fetch(
-      `https://api.themoviedb.org/3/${type}/${id}/recommendations?api_key=${process.env.NEXT_PUBLIC_TMDB_API_KEY}&language=fa-IR`,
-      { cache: "no-store" }
-    ),
-    fetch(
-      `https://api.themoviedb.org/3/${type}/${id}/videos?api_key=${process.env.NEXT_PUBLIC_TMDB_API_KEY}&language=en-US`,
-      { cache: "no-store" }
-    ),
+    fetchMediaDetails(type, id, apiKey, "fa-IR"),
+    fetchMediaCredits(type, id, apiKey, "fa-IR"),
+    fetchMediaRecommendations(type, id, apiKey, "fa-IR"),
+    fetchMediaVideos(type, id, apiKey, "en-US"),
     type === "tv"
-      ? fetch(
-          `https://api.themoviedb.org/3/tv/${id}?api_key=${process.env.NEXT_PUBLIC_TMDB_API_KEY}&language=fa-IR&append_to_response=season/1`,
-          { cache: "no-store" }
-        )
+      ? fetchTVSeasonMeta(id, apiKey, "fa-IR")
       : Promise.resolve({ ok: true, json: async () => ({}) }),
   ]);
 
@@ -50,10 +45,7 @@ export default async function MediaDetailsPage(props: any) {
 
   if (type === "tv") {
     for (const season of seasonMeta) {
-      const res = await fetch(
-        `https://api.themoviedb.org/3/tv/${id}/season/${season.season_number}?api_key=${process.env.NEXT_PUBLIC_TMDB_API_KEY}&language=fa-IR`,
-        { cache: "no-store" }
-      );
+      const res = await fetchTVSeasonEpisodes(id, season.season_number, apiKey, "fa-IR");
       if (res.ok) {
         const seasonData = await res.json();
         episodesBySeason[season.season_number] = seasonData.episodes.map((ep: any) => ({
@@ -81,7 +73,6 @@ export default async function MediaDetailsPage(props: any) {
           seasons={seasonMeta}
           episodesBySeason={episodesBySeason}
         />
-
 
         <OverviewSection overview={data.overview} />
 

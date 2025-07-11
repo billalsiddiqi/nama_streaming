@@ -1,44 +1,69 @@
 // lib/tmdb.ts
-const TMDB_API_KEY = process.env.NEXT_PUBLIC_TMDB_API_KEY;
-const BASE_URL = "https://api.themoviedb.org/3";
+const LOCAL_API = "/api/tmdb";
 
-export async function fetchGenres(type: "movie" | "tv") {
-  const res = await fetch(
-    `${BASE_URL}/genre/${type}/list?api_key=${TMDB_API_KEY}&language=fa-IR`
-  );
+// Types
+export type Show = {
+  id: number;
+  name: string;
+  poster_path: string;
+  [key: string]: any;
+};
+
+export type Movie = {
+  id: number;
+  title: string;
+  poster_path: string;
+  [key: string]: any;
+};
+
+/**
+ * Fetch genres for movies or TV shows.
+ */
+export async function fetchGenres(type: "movie" | "tv", language = "fa-IR") {
+  const res = await fetch(`${LOCAL_API}?endpoint=genre/${type}/list&language=${language}`);
   const data = await res.json();
-  return data.genres; // [{ id, name }] where name is in Persian
+  return data.genres;
 }
 
-export async function fetchMediaByGenre(genreId: number, type: "movie" | "tv") {
-  const url = `${BASE_URL}/discover/${type}?api_key=${TMDB_API_KEY}&with_genres=${genreId}&sort_by=popularity.desc&language=fa-IR&${type === "movie" ? "primary_release_date.lte" : "first_air_date.lte"}=2025-12-31`;
-  const res = await fetch(url);
+/**
+ * Fetch media by genre.
+ */
+export async function fetchMediaByGenre(
+  genreId: number,
+  type: "movie" | "tv",
+  language = "fa-IR"
+) {
+  const dateParam = type === "movie" ? "primary_release_date.lte" : "first_air_date.lte";
+  const res = await fetch(
+    `${LOCAL_API}?endpoint=discover/${type}&with_genres=${genreId}&sort_by=popularity.desc&language=${language}&${dateParam}=2025-12-31`
+  );
   const data = await res.json();
   return data.results;
 }
 
-export async function fetchSpecialSections(embedLinks: any[]) {
+/**
+ * Fetch special sections (e.g. Popular, Bollywood).
+ */
+export async function fetchSpecialSections(embedLinks: any[], language = "fa-IR") {
   const specials = [
     {
       name: "Popular",
       name_fa: "محبوب‌ترین‌ها",
-      movie_url: `${BASE_URL}/movie/popular?api_key=${TMDB_API_KEY}&language=fa-IR`,
-      tv_url: `${BASE_URL}/tv/popular?api_key=${TMDB_API_KEY}&language=fa-IR`
+      movie_endpoint: `movie/popular`,
+      tv_endpoint: `tv/popular`
     },
     {
       name: "Bollywood",
       name_fa: "بالیوود",
-      movie_url: `${BASE_URL}/discover/movie?api_key=${TMDB_API_KEY}&with_original_language=hi&sort_by=popularity.desc&language=fa-IR`,
-      tv_url: `${BASE_URL}/discover/tv?api_key=${TMDB_API_KEY}&with_original_language=hi&sort_by=popularity.desc&language=fa-IR`
+      movie_endpoint: `discover/movie?with_original_language=hi&sort_by=popularity.desc`,
+      tv_endpoint: `discover/tv?with_original_language=hi&sort_by=popularity.desc`
     }
   ];
 
   return await Promise.all(
     specials.map(async (section, index) => {
-      const [movieRes, tvRes] = await Promise.all([
-        fetch(section.movie_url),
-        fetch(section.tv_url)
-      ]);
+      const movieRes = await fetch(`${LOCAL_API}?endpoint=${section.movie_endpoint}&language=${language}`);
+      const tvRes = await fetch(`${LOCAL_API}?endpoint=${section.tv_endpoint}&language=${language}`);
       const movieData = await movieRes.json();
       const tvData = await tvRes.json();
 
@@ -53,6 +78,9 @@ export async function fetchSpecialSections(embedLinks: any[]) {
   );
 }
 
+/**
+ * Map TMDB media items to local format.
+ */
 export function mapMedia(items: any[], embedLinks: any[], type: "movie" | "tv") {
   return items.slice(0, 10).map((item) => {
     const match = embedLinks.find(
@@ -70,3 +98,130 @@ export function mapMedia(items: any[], embedLinks: any[], type: "movie" | "tv") 
     };
   });
 }
+
+/**
+ * Fetch top rated TV shows.
+ */
+export async function fetchTopRatedShows(
+  page: number,
+  language = "fa-IR"
+): Promise<{ results: Show[]; page: number; total_pages: number }> {
+  const res = await fetch(`${LOCAL_API}?endpoint=tv/top_rated&page=${page}&language=${language}`);
+  const data = await res.json();
+  const results = (data.results || []).filter((s: any) => s.poster_path);
+  return {
+    results,
+    page: data.page,
+    total_pages: data.total_pages,
+  };
+}
+
+/**
+ * Fetch now playing movies.
+ */
+export async function fetchNowPlayingMovies(
+  page: number,
+  language = "fa-IR",
+  filters?: { genre?: string; year?: string; country?: string },
+  search?: string
+): Promise<{ results: Movie[]; page: number; total_pages: number }> {
+  const params = new URLSearchParams({
+    language,
+    sort_by: "release_date.desc",
+    page: page.toString(),
+    ...(filters?.genre ? { with_genres: filters.genre } : {}),
+    ...(filters?.country ? { with_original_language: filters.country } : {}),
+    ...(filters?.year && filters.year !== "older"
+      ? { primary_release_year: filters.year }
+      : filters?.year === "older"
+      ? { primary_release_date_lte: "2020-12-31" }
+      : {}),
+    ...(search ? { query: search } : {})
+  });
+
+  const res = await fetch(`${LOCAL_API}?endpoint=movie/now_playing&${params.toString()}`);
+  const data = await res.json();
+  const results = (data.results || []).filter((m: any) => m.poster_path);
+  return {
+    results,
+    page: data.page,
+    total_pages: data.total_pages,
+  };
+}
+
+/**
+ * Fetch media details.
+ */
+export async function fetchMediaDetails(
+  type: "movie" | "tv",
+  id: string,
+  language = "fa-IR"
+) {
+  return fetch(`${LOCAL_API}?endpoint=${type}/${id}&language=${language}`, { cache: "no-store" });
+}
+
+/**
+ * Fetch media credits.
+ */
+export async function fetchMediaCredits(
+  type: "movie" | "tv",
+  id: string,
+  language = "fa-IR"
+) {
+  return fetch(`${LOCAL_API}?endpoint=${type}/${id}/credits&language=${language}`, { cache: "no-store" });
+}
+
+/**
+ * Fetch media recommendations.
+ */
+export async function fetchMediaRecommendations(
+  type: "movie" | "tv",
+  id: string,
+  language = "fa-IR"
+) {
+  return fetch(`${LOCAL_API}?endpoint=${type}/${id}/recommendations&language=${language}`, { cache: "no-store" });
+}
+
+/**
+ * Fetch media videos.
+ */
+export async function fetchMediaVideos(
+  type: "movie" | "tv",
+  id: string,
+  language = "en-US"
+) {
+  return fetch(`${LOCAL_API}?endpoint=${type}/${id}/videos&language=${language}`, { cache: "no-store" });
+}
+
+/**
+ * Fetch TV season meta.
+ */
+export async function fetchTVSeasonMeta(
+  id: string,
+  language = "fa-IR"
+) {
+  return fetch(`${LOCAL_API}?endpoint=tv/${id}&language=${language}&append_to_response=season/1`, { cache: "no-store" });
+}
+
+/**
+ * Fetch TV season episodes.
+ */
+export async function fetchTVSeasonEpisodes(
+  id: string,
+  seasonNumber: number,
+  language = "fa-IR"
+) {
+  return fetch(`${LOCAL_API}?endpoint=tv/${id}/season/${seasonNumber}&language=${language}`, { cache: "no-store" });
+}
+
+/**
+ * Search movies and TV shows.
+ */
+export async function searchMulti(
+  query: string,
+  language = "fa-IR"
+) {
+  const res = await fetch(`${LOCAL_API}?endpoint=search/multi&language=${language}&query=${encodeURIComponent(query)}`, { cache: "no-store" });
+  return res.json();
+}
+

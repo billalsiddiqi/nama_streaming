@@ -37,6 +37,7 @@ export default function MediaHeroSection({
   const [isPlaying, setIsPlaying] = useState(false);
   const [selectedSeason, setSelectedSeason] = useState<number | null>(null);
   const [selectedEpisode, setSelectedEpisode] = useState<Episode | null>(null);
+  const [isLoading, setIsLoading] = useState(false);
 
   const youtubeUrl = "https://www.youtube.com/embed/dQw4w9WgXcQ"; // placeholder
 
@@ -57,6 +58,7 @@ export default function MediaHeroSection({
           src={youtubeUrl}
           className="w-full h-full"
           allowFullScreen
+          onLoad={() => setIsLoading(false)}
         />
         <div className="absolute top-2 right-2 z-10">
           <button
@@ -79,13 +81,25 @@ export default function MediaHeroSection({
   // Default View: Hero Info
   return (
     <div className="relative w-full h-[300px] md:h-[400px] lg:h-[500px] overflow-hidden rounded-lg px-4 md:px-8">
+      {isLoading && (
+        <div className="absolute inset-0 flex items-center justify-center bg-black/60 z-20">
+          <div className="animate-spin rounded-full h-10 w-10 border-b-2 border-white" />
+        </div>
+      )}
       <Image
-        src={`https://image.tmdb.org/t/p/original${backdrop || poster}`}
+        src={
+          backdrop
+            ? `https://image.tmdb.org/t/p/w1280${backdrop}`
+            : poster
+            ? `https://image.tmdb.org/t/p/w500${poster}`
+            : '/images/hero1.webp'
+        }
         alt={title}
         fill
         className="object-cover"
         priority
       />
+
       <div className="absolute inset-0 bg-gradient-to-t from-black via-black/60 to-transparent p-4 md:p-8 flex flex-col justify-end items-center gap-5">
         <h1 className="text-4xl md:text-5xl lg:text-8xl font-bold text-white mb-2 drop-shadow">
           {title}
@@ -95,10 +109,13 @@ export default function MediaHeroSection({
           <span>📅 {releaseDate}</span>
           {runtime && <span>⏱️ {runtime} دقیقه</span>}
         </div>
-        <button
-          onClick={() => setIsPlaying(true)}
+       <button
+          onClick={() => {
+            setIsLoading(true);
+            setIsPlaying(true);
+          }}
           className="mt-4 px-4 py-2 bg-red-600 text-white rounded shadow"
-        >
+          >
           ▶ پخش
         </button>
       </div>

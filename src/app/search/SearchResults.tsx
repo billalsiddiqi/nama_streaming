@@ -3,6 +3,7 @@
 import { useSearchParams } from 'next/navigation';
 import { useEffect, useState } from 'react';
 import MediaGrid from '@/components/MediaGrid';
+import { searchMulti } from "@/lib/tmdb";
 
 interface MediaItem {
   id: number;
@@ -23,29 +24,22 @@ export default function SearchResults() {
     if (!query) return;
     setLoading(true);
 
-    fetch(
-      `https://api.themoviedb.org/3/search/multi?api_key=${process.env.NEXT_PUBLIC_TMDB_API_KEY}&language=fa-IR&query=${encodeURIComponent(query)}`
-    )
-      .then((res) => res.json())
+    searchMulti(query, "fa-IR")
       .then((data) => {
         const validResults = (data.results || []).filter(
           (item: any) => (item.media_type === 'movie' || item.media_type === 'tv') && item.poster_path
         );
 
-        console.log('Valid results:', validResults);
-
         const normalized = validResults.map((item: any) => ({
           id: item.id,
           title: item.title || item.name || 'بدون عنوان',
           title_fa: item.title || item.name || 'بدون عنوان',
-          poster_path: item.poster_path, // 👈 ADD THIS LINE
+          poster_path: item.poster_path,
           cover_image_url: `https://image.tmdb.org/t/p/w500${item.poster_path}`,
           embed_url: null,
           media_type: item.media_type,
         }));
 
-
-        console.log('Normalized results:', normalized);
         setMovies(normalized.filter((item: any) => item.media_type === 'movie'));
         setTvShows(normalized.filter((item: any) => item.media_type === 'tv'));
       })

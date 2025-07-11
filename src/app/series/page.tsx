@@ -5,6 +5,8 @@ import Header from "@/components/Header";
 import MobileBottomNav from "@/components/MobileBottomNav";
 import MediaGrid from "@/components/MediaGrid";
 import { useEffect, useState } from "react";
+import { fetchTopRatedShows, Show } from "@/lib/tmdb";
+
 
 export default function TVShowsPage() {
   const [search, setSearch] = useState("");
@@ -27,18 +29,13 @@ export default function TVShowsPage() {
   const fetchShows = async (reset = false) => {
     if (reset) setLoading(true);
 
-    const baseUrl = "https://api.themoviedb.org/3/tv/top_rated";
-    const params = new URLSearchParams({
-      api_key: process.env.NEXT_PUBLIC_TMDB_API_KEY ?? "",
-      language: "fa-IR",
-      page: reset ? "1" : page.toString()
-    });
-
-    const url = `${baseUrl}?${params.toString()}`;
-    const res = await fetch(url);
-    const data = await res.json();
-
-    let results = (data.results || []).filter((s: any) => s.poster_path);
+    const apiKey = process.env.NEXT_PUBLIC_TMDB_API_KEY ?? "";
+    const currentPage = reset ? 1 : page;
+    const { results, page: apiPage, total_pages } = await fetchTopRatedShows(
+      currentPage,
+      apiKey,
+      "fa-IR"
+    );
 
     if (reset) {
       setShows(results);
@@ -48,7 +45,7 @@ export default function TVShowsPage() {
       setPage((prev) => prev + 1);
     }
 
-    setHasMore(data.page < data.total_pages);
+    setHasMore(apiPage < total_pages);
     if (reset) setLoading(false);
   };
 
