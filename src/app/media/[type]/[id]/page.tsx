@@ -21,15 +21,14 @@ export default async function MediaDetailsPage(props: any) {
 
   if (type !== "movie" && type !== "tv") return notFound();
 
-  const apiKey = process.env.NEXT_PUBLIC_TMDB_API_KEY ?? "";
 
   const [resDetails, resCredits, resRecs, resVideos, resSeasons] = await Promise.all([
-    fetchMediaDetails(type, id, apiKey, "fa-IR"),
-    fetchMediaCredits(type, id, apiKey, "fa-IR"),
-    fetchMediaRecommendations(type, id, apiKey, "fa-IR"),
-    fetchMediaVideos(type, id, apiKey, "en-US"),
+    fetchMediaDetails(type, id, "fa-IR"),
+    fetchMediaCredits(type, id, "fa-IR"),
+    fetchMediaRecommendations(type, id, "fa-IR"),
+    fetchMediaVideos(type, id, "en-US"),
     type === "tv"
-      ? fetchTVSeasonMeta(id, apiKey, "fa-IR")
+      ? fetchTVSeasonMeta(id, "fa-IR")
       : Promise.resolve({ ok: true, json: async () => ({}) }),
   ]);
 
@@ -45,7 +44,7 @@ export default async function MediaDetailsPage(props: any) {
 
   if (type === "tv") {
     for (const season of seasonMeta) {
-      const res = await fetchTVSeasonEpisodes(id, season.season_number, apiKey, "fa-IR");
+      const res = await fetchTVSeasonEpisodes(id, season.season_number, "fa-IR");
       if (res.ok) {
         const seasonData = await res.json();
         episodesBySeason[season.season_number] = seasonData.episodes.map((ep: any) => ({

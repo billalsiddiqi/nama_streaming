@@ -29,11 +29,9 @@ export default function TVShowsPage() {
   const fetchShows = async (reset = false) => {
     if (reset) setLoading(true);
 
-    const apiKey = process.env.NEXT_PUBLIC_TMDB_API_KEY ?? "";
     const currentPage = reset ? 1 : page;
     const { results, page: apiPage, total_pages } = await fetchTopRatedShows(
       currentPage,
-      apiKey,
       "fa-IR"
     );
 
