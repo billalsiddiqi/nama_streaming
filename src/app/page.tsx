@@ -1,29 +1,27 @@
 import Footer from "@/components/Footer";
-import GenreList from "@/components/GenreList";
-import Header from "@/components/Header";
-import Hero from "@/components/Hero";
-import MobileBottomNav from "@/components/MobileBottomNav";
-
+import Header from "@/components/header/Header";
+import AvailableTabs from "@/components/home/AvailableTabs.lazy";
+import SearchHeroSection from "@/components/home/SearchHeroSection";
 
 export default async function Home() {
-  
-  return (
-    <div className="bg-dark-text pb-24 md:pb-0 min-h-screen transition-all duration-300">
-      <div className="">
-        <div className="container mx-auto px-4">
-          <Header />
-        </div>
-        <div>
-          <Hero />
-        </div>
-        
-        <main className="">
-        <GenreList />
-        </main>
 
-      </div>
+  return (
+    <div className="pb-24 md:pb-0 transition-all duration-300">
+      <section>
+        <Header />
+      </section>
+      
+      <section>
+        <SearchHeroSection />
+      </section>
+
+      <section>
+        <AvailableTabs />
+      </section>
+
+      <section>
         <Footer />
-        <MobileBottomNav />
+      </section>
     </div>
   );
 }

@@ -3,16 +3,16 @@ import Image from 'next/image'
 
 export default function Footer() {
     return (
-      <footer className="hidden md:block bg-black text-gray-400 pt-12 mt-20 pb-6 border-t border-zinc-700">
-        <div className="container mx-auto px-4">
-          <div className="flex justify-between items-start">
+      <footer className="hidden md:block bg-transparen text-gray-400 pt-12 mt-20 pb-6 border-t border-zinc-700">
+        <div className="container max-w-8xl mx-auto px-4">
+          <div className="flex justify-between items-center">
             {/* Logo and Description */}
             <div>
                <Image
-                          src="/nama.svg"
+                          src="/aseman+.svg"
                           alt="NAMA Logo"
-                          width={65}
-                          height={65}
+                          width={120}
+                          height={120}
                           className="object-contain"
                           />
               <p className="text-sm mt-4 max-w-sm">
@@ -52,8 +52,8 @@ export default function Footer() {
           </div>
   
           {/* Copyright */}
-          <div className="mt-10 border-t border-zinc-700 pt-4 text-sm text-center text-gray-500">
-            © {new Date().getFullYear()} NAMA. تمام حقوق محفوظ است.
+          <div className="mt-10 pt-4 text-sm text-center text-gray-500">
+            © {new Date().getFullYear()} <span dir='ltr' className='ml-2'>Aseman+</span>  تمام حقوق محفوظ است.
           </div>
         </div>
       </footer>

@@ -25,6 +25,11 @@
   --color-text: #F5F5F5;
 }
 
+@layer utilities {
+  .max-w-8xl {
+    max-width: 1400px;
+  }
+}
 
 
 @font-face {

@@ -1,12 +1,454 @@
-[
-  {
-    "tmdb_id": 872585,
-    "type": "movie",
-    "embed_url": "https://yourdomain.com/embed/oppenheimer.mp4"
-  },
-  {
-    "tmdb_id": 123456,
-    "type": "tv",
-    "embed_url": "https://yourdomain.com/embed/thelastofus.mp4"
-  }
-]
+{
+  "version": "1.0",
+  "data": [
+    {
+      "tmdb_id": 550,
+      "type": "movie",
+      "duration": 139,
+      "sources": {
+        "480p": {
+          "url": "https://yourzone.b-cdn.net/movies/fight-club/480p.mp4",
+          "subtitles": ["en.vtt", "fa.vtt"]
+        },
+        "720p": {
+          "url": "https://yourzone.b-cdn.net/movies/fight-club/720p.mp4",
+          "subtitles": ["en.vtt", "fa.vtt"]
+        },
+        "1080p": {
+          "url": "https://yourzone.b-cdn.net/movies/fight-club/1080p.mp4",
+          "subtitles": ["en.vtt", "fa.vtt"]
+        }
+      }
+    },
+    {
+      "tmdb_id": 1061474,
+      "type": "movie",
+      "duration": 139,
+      "sources": {
+        "480p": {
+          "url": "https://yourzone.b-cdn.net/movies/fight-club/480p.mp4",
+          "subtitles": ["en.vtt", "fa.vtt"]
+        },
+        "720p": {
+          "url": "https://yourzone.b-cdn.net/movies/fight-club/720p.mp4",
+          "subtitles": ["en.vtt", "fa.vtt"]
+        },
+        "1080p": {
+          "url": "https://yourzone.b-cdn.net/movies/fight-club/1080p.mp4",
+          "subtitles": ["en.vtt", "fa.vtt"]
+        }
+      }
+    },
+    {
+      "tmdb_id": 911430,
+      "type": "movie",
+      "duration": 139,
+      "sources": {
+        "480p": {
+          "url": "https://yourzone.b-cdn.net/movies/fight-club/480p.mp4",
+          "subtitles": ["en.vtt", "fa.vtt"]
+        },
+        "720p": {
+          "url": "https://yourzone.b-cdn.net/movies/fight-club/720p.mp4",
+          "subtitles": ["en.vtt", "fa.vtt"]
+        },
+        "1080p": {
+          "url": "https://yourzone.b-cdn.net/movies/fight-club/1080p.mp4",
+          "subtitles": ["en.vtt", "fa.vtt"]
+        }
+      }
+    },
+    {
+      "tmdb_id": 603,
+      "type": "movie",
+      "duration": 136,
+      "sources": {
+        "480p": {
+          "url": "https://yourzone.b-cdn.net/movies/the-matrix/480p.mp4",
+          "subtitles": ["en.vtt", "fa.vtt"]
+        },
+        "720p": {
+          "url": "https://yourzone.b-cdn.net/movies/the-matrix/720p.mp4",
+          "subtitles": ["en.vtt", "fa.vtt"]
+        },
+        "1080p": {
+          "url": "https://yourzone.b-cdn.net/movies/the-matrix/1080p.mp4",
+          "subtitles": ["en.vtt", "fa.vtt"]
+        }
+      }
+    },
+    {
+      "tmdb_id": 278,
+      "type": "movie",
+      "duration": 142,
+      "sources": {
+        "480p": {
+          "url": "https://yourzone.b-cdn.net/movies/shawshank-redemption/480p.mp4",
+          "subtitles": ["en.vtt", "fa.vtt"]
+        },
+        "720p": {
+          "url": "https://yourzone.b-cdn.net/movies/shawshank-redemption/720p.mp4",
+          "subtitles": ["en.vtt", "fa.vtt"]
+        },
+        "1080p": {
+          "url": "https://yourzone.b-cdn.net/movies/shawshank-redemption/1080p.mp4",
+          "subtitles": ["en.vtt", "fa.vtt"]
+        }
+      }
+    },
+    {
+      "tmdb_id": 155,
+      "type": "movie",
+      "duration": 152,
+      "sources": {
+        "480p": {
+          "url": "https://yourzone.b-cdn.net/movies/the-dark-knight/480p.mp4",
+          "subtitles": ["en.vtt", "fa.vtt"]
+        },
+        "720p": {
+          "url": "https://yourzone.b-cdn.net/movies/the-dark-knight/720p.mp4",
+          "subtitles": ["en.vtt", "fa.vtt"]
+        },
+        "1080p": {
+          "url": "https://yourzone.b-cdn.net/movies/the-dark-knight/1080p.mp4",
+          "subtitles": ["en.vtt", "fa.vtt"]
+        }
+      }
+    },
+    {
+      "tmdb_id": 238,
+      "type": "movie",
+      "duration": 175,
+      "sources": {
+        "480p": {
+          "url": "https://yourzone.b-cdn.net/movies/the-godfather/480p.mp4",
+          "subtitles": ["en.vtt", "fa.vtt"]
+        },
+        "720p": {
+          "url": "https://yourzone.b-cdn.net/movies/the-godfather/720p.mp4",
+          "subtitles": ["en.vtt", "fa.vtt"]
+        },
+        "1080p": {
+          "url": "https://yourzone.b-cdn.net/movies/the-godfather/1080p.mp4",
+          "subtitles": ["en.vtt", "fa.vtt"]
+        }
+      }
+    },
+    {
+      "tmdb_id": 157336,
+      "type": "movie",
+      "duration": 169,
+      "sources": {
+        "480p": {
+          "url": "https://yourzone.b-cdn.net/movies/interstellar/480p.mp4",
+          "subtitles": ["en.vtt", "fa.vtt"]
+        },
+        "720p": {
+          "url": "https://yourzone.b-cdn.net/movies/interstellar/720p.mp4",
+          "subtitles": ["en.vtt", "fa.vtt"]
+        },
+        "1080p": {
+          "url": "https://yourzone.b-cdn.net/movies/interstellar/1080p.mp4",
+          "subtitles": ["en.vtt", "fa.vtt"]
+        }
+      }
+    },
+    {
+      "tmdb_id": 122,
+      "type": "movie",
+      "duration": 107,
+      "sources": {
+        "480p": {
+          "url": "https://yourzone.b-cdn.net/movies/the-lord-of-the-rings/480p.mp4",
+          "subtitles": ["en.vtt", "fa.vtt"]
+        },
+        "720p": {
+          "url": "https://yourzone.b-cdn.net/movies/the-lord-of-the-rings/720p.mp4",
+          "subtitles": ["en.vtt", "fa.vtt"]
+        },
+        "1080p": {
+          "url": "https://yourzone.b-cdn.net/movies/the-lord-of-the-rings/1080p.mp4",
+          "subtitles": ["en.vtt", "fa.vtt"]
+        }
+      }
+    },
+    {
+      "tmdb_id": 27205,
+      "type": "movie",
+      "duration": 148,
+      "sources": {
+        "480p": {
+          "url": "https://yourzone.b-cdn.net/movies/inception/480p.mp4",
+          "subtitles": ["en.vtt", "fa.vtt"]
+        },
+        "720p": {
+          "url": "https://yourzone.b-cdn.net/movies/inception/720p.mp4",
+          "subtitles": ["en.vtt", "fa.vtt"]
+        },
+        "1080p": {
+          "url": "https://yourzone.b-cdn.net/movies/inception/1080p.mp4",
+          "subtitles": ["en.vtt", "fa.vtt"]
+        }
+      }
+    },
+    {
+      "tmdb_id": 424,
+      "type": "movie",
+      "duration": 137,
+      "sources": {
+        "480p": {
+          "url": "https://yourzone.b-cdn.net/movies/schindlers-list/480p.mp4",
+          "subtitles": ["en.vtt", "fa.vtt"]
+        },
+        "720p": {
+          "url": "https://yourzone.b-cdn.net/movies/schindlers-list/720p.mp4",
+          "subtitles": ["en.vtt", "fa.vtt"]
+        },
+        "1080p": {
+          "url": "https://yourzone.b-cdn.net/movies/schindlers-list/1080p.mp4",
+          "subtitles": ["en.vtt", "fa.vtt"]
+        }
+      }
+    },
+    {
+      "tmdb_id": 680,
+      "type": "movie",
+      "duration": 139,
+      "sources": {
+        "480p": {
+          "url": "https://yourzone.b-cdn.net/movies/pulp-fiction/480p.mp4",
+          "subtitles": ["en.vtt", "fa.vtt"]
+        },
+        "720p": {
+          "url": "https://yourzone.b-cdn.net/movies/pulp-fiction/720p.mp4",
+          "subtitles": ["en.vtt", "fa.vtt"]
+        },
+        "1080p": {
+          "url": "https://yourzone.b-cdn.net/movies/pulp-fiction/1080p.mp4",
+          "subtitles": ["en.vtt", "fa.vtt"]
+        }
+      }
+    },
+    {
+      "tmdb_id": 1399,
+      "type": "tv",
+      "title": "Game of Thrones",
+      "seasons": [
+        {
+          "season_number": 1,
+          "episodes": [
+            {
+              "episode_number": 1,
+              "duration": 62,
+              "sources": {
+                "480p": {
+                  "url": "https://yourzone.b-cdn.net/shows/got/s1/e1-480p.mp4",
+                  "subtitles": ["en.vtt", "fa.vtt"]
+                },
+                "720p": {
+                  "url": "https://yourzone.b-cdn.net/shows/got/s1/e1-720p.mp4",
+                  "subtitles": ["en.vtt", "fa.vtt"]
+                },
+                "1080p": {
+                  "url": "https://yourzone.b-cdn.net/shows/got/s1/e1-1080p.mp4",
+                  "subtitles": ["en.vtt", "fa.vtt"]
+                }
+              }
+            },
+            {
+              "episode_number": 2,
+              "duration": 56,
+              "sources": {
+                "480p": {
+                  "url": "https://yourzone.b-cdn.net/shows/got/s1/e2-480p.mp4",
+                  "subtitles": ["en.vtt", "fa.vtt"]
+                },
+                "720p": {
+                  "url": "https://yourzone.b-cdn.net/shows/got/s1/e2-720p.mp4",
+                  "subtitles": ["en.vtt", "fa.vtt"]
+                },
+                "1080p": {
+                  "url": "https://yourzone.b-cdn.net/shows/got/s1/e2-1080p.mp4",
+                  "subtitles": ["en.vtt", "fa.vtt"]
+                }
+              }
+            }
+          ]
+        },
+        {
+          "season_number": 2,
+          "episodes": [
+            {
+              "episode_number": 1,
+              "duration": 53,
+              "sources": {
+                "480p": {
+                  "url": "https://yourzone.b-cdn.net/shows/got/s2/e1-480p.mp4",
+                  "subtitles": ["en.vtt", "fa.vtt"]
+                },
+                "720p": {
+                  "url": "https://yourzone.b-cdn.net/shows/got/s2/e1-720p.mp4",
+                  "subtitles": ["en.vtt", "fa.vtt"]
+                },
+                "1080p": {
+                  "url": "https://yourzone.b-cdn.net/shows/got/s2/e1-1080p.mp4",
+                  "subtitles": ["en.vtt", "fa.vtt"]
+                }
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "tmdb_id": 66732,
+      "type": "tv",
+      "title": "Stranger Things",
+      "seasons": [
+        {
+          "season_number": 1,
+          "episodes": [
+            {
+              "episode_number": 1,
+              "duration": 49,
+              "sources": {
+                "480p": {
+                  "url": "https://yourzone.b-cdn.net/shows/stranger-things/s1/e1-480p.mp4",
+                  "subtitles": ["en.vtt", "fa.vtt"]
+                },
+                "720p": {
+                  "url": "https://yourzone.b-cdn.net/shows/stranger-things/s1/e1-720p.mp4",
+                  "subtitles": ["en.vtt", "fa.vtt"]
+                },
+                "1080p": {
+                  "url": "https://yourzone.b-cdn.net/shows/stranger-things/s1/e1-1080p.mp4",
+                  "subtitles": ["en.vtt", "fa.vtt"]
+                }
+              }
+            }
+          ]
+        }
+      ]
+    },
+      {
+      "tmdb_id": 66732,
+      "type": "tv",
+      "title": "Stranger Things",
+      "seasons": [
+        {
+          "season_number": 1,
+          "episodes": [
+            {
+              "episode_number": 1,
+              "duration": 49,
+              "sources": {
+                "480p": {
+                  "url": "https://yourzone.b-cdn.net/shows/stranger-things/s1/e1-480p.mp4",
+                  "subtitles": ["en.vtt", "fa.vtt"]
+                },
+                "720p": {
+                  "url": "https://yourzone.b-cdn.net/shows/stranger-things/s1/e1-720p.mp4",
+                  "subtitles": ["en.vtt", "fa.vtt"]
+                },
+                "1080p": {
+                  "url": "https://yourzone.b-cdn.net/shows/stranger-things/s1/e1-1080p.mp4",
+                  "subtitles": ["en.vtt", "fa.vtt"]
+                }
+              }
+            }
+          ]
+        }
+      ]
+    },
+      {
+      "tmdb_id": 46952,
+      "type": "tv",
+      "title": "Stranger Things",
+      "seasons": [
+        {
+          "season_number": 12,
+          "episodes": [
+            {
+              "episode_number": 1,
+              "duration": 49,
+              "sources": {
+                "480p": {
+                  "url": "https://yourzone.b-cdn.net/shows/stranger-things/s1/e1-480p.mp4",
+                  "subtitles": ["en.vtt", "fa.vtt"]
+                },
+                "720p": {
+                  "url": "https://yourzone.b-cdn.net/shows/stranger-things/s1/e1-720p.mp4",
+                  "subtitles": ["en.vtt", "fa.vtt"]
+                },
+                "1080p": {
+                  "url": "https://yourzone.b-cdn.net/shows/stranger-things/s1/e1-1080p.mp4",
+                  "subtitles": ["en.vtt", "fa.vtt"]
+                }
+              }
+            }
+          ]
+        }
+      ]
+    },
+      {
+      "tmdb_id": 93405,
+      "type": "tv",
+      "title": "Stranger Things",
+      "seasons": [
+        {
+          "season_number": 2,
+          "episodes": [
+            {
+              "episode_number": 1,
+              "duration": 49,
+              "sources": {
+                "480p": {
+                  "url": "https://yourzone.b-cdn.net/shows/stranger-things/s1/e1-480p.mp4",
+                  "subtitles": ["en.vtt", "fa.vtt"]
+                },
+                "720p": {
+                  "url": "https://yourzone.b-cdn.net/shows/stranger-things/s1/e1-720p.mp4",
+                  "subtitles": ["en.vtt", "fa.vtt"]
+                },
+                "1080p": {
+                  "url": "https://yourzone.b-cdn.net/shows/stranger-things/s1/e1-1080p.mp4",
+                  "subtitles": ["en.vtt", "fa.vtt"]
+                }
+              }
+            }
+          ]
+        }
+      ]
+    },
+      {
+      "tmdb_id": 1408,
+      "type": "tv",
+      "title": "Stranger Things",
+      "seasons": [
+        {
+          "season_number": 6,
+          "episodes": [
+            {
+              "episode_number": 1,
+              "duration": 49,
+              "sources": {
+                "480p": {
+                  "url": "https://yourzone.b-cdn.net/shows/stranger-things/s1/e1-480p.mp4",
+                  "subtitles": ["en.vtt", "fa.vtt"]
+                },
+                "720p": {
+                  "url": "https://yourzone.b-cdn.net/shows/stranger-things/s1/e1-720p.mp4",
+                  "subtitles": ["en.vtt", "fa.vtt"]
+                },
+                "1080p": {
+                  "url": "https://yourzone.b-cdn.net/shows/stranger-things/s1/e1-1080p.mp4",
+                  "subtitles": ["en.vtt", "fa.vtt"]
+                }
+              }
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
