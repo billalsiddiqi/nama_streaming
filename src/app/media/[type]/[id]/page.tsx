@@ -3,25 +3,22 @@ import { notFound } from "next/navigation";
 import { getCachedEmbedLinks } from "@/lib/embedLinks";
 import MediaDetailHeader from "@/components/MediaDetailsHeader";
 
-interface MediaDetailsPageProps {
+interface PageProps {
   params: {
     type: "movie" | "tv";
     id: string;
   };
 }
 
-export default async function MediaDetailsPage({ params }: MediaDetailsPageProps) {
+export default async function MediaDetailsPage({ params }: PageProps) {
   const { type, id } = params;
 
   if (type !== "movie" && type !== "tv") return notFound();
 
-  // ✅ Use cached embedLinks from shared lib
   const embedLinks = getCachedEmbedLinks();
   const isAvailable = embedLinks.some(
     (item: any) => item.tmdb_id === Number(id) && item.type === type
   );
-
-  console.log("Availability:", isAvailable);
 
   return (
     <div className="min-h-screen bg-black text-white p-8">
