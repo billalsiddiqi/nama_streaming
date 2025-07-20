@@ -1,21 +1,22 @@
 // app/media/[type]/[id]/page.tsx
+
 import { notFound } from "next/navigation";
 import { getCachedEmbedLinks } from "@/lib/embedLinks";
 import MediaDetailHeader from "@/components/MediaDetailsHeader";
 
-interface PageProps {
-  params: {
-    type: "movie" | "tv";
-    id: string;
-  };
-}
-
-export default async function MediaDetailsPage({ params }: PageProps) {
+// ✅ No need to define your own props interface, just use this directly
+export default async function MediaDetailsPage({
+  params,
+}: {
+  params: { type: string; id: string };
+}) {
   const { type, id } = params;
 
+  // Ensure type is valid
   if (type !== "movie" && type !== "tv") return notFound();
 
   const embedLinks = getCachedEmbedLinks();
+
   const isAvailable = embedLinks.some(
     (item: any) => item.tmdb_id === Number(id) && item.type === type
   );
