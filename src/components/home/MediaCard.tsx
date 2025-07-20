@@ -69,7 +69,7 @@ export default function MediaCard({ item, type }: MediaCardProps) {
         {/* Coming Soon */}
         {!item.isAvailable && (
           <div className="absolute top-0 left-0 w-full flex justify-center z-10">
-            <span className="bg-gradient-to-r from-yellow-400 via-yellow-300 to-yellow-400 text-black text-xs font-bold px-4 py-1 rounded-b-xl shadow-lg animate-pulse">
+            <span className="bg-gradient-to-r from-yellow-400 via-yellow-300 to-yellow-400 text-black text-xs font-bold px-4 py-1 rounded-b-xl shadow-lg">
               بزودی
             </span>
           </div>

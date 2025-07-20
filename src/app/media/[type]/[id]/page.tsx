@@ -17,8 +17,8 @@ export default async function MediaDetailsPage({
   // Validate route
   if (type !== "movie" && type !== "tv") return notFound();
 
-  // If your function is async, add `await` here
-  const embedLinks = getCachedEmbedLinks();
+  // ✅ Await the async function
+  const embedLinks = await getCachedEmbedLinks();
 
   const isAvailable = embedLinks.some(
     (item: any) => item.tmdb_id === Number(id) && item.type === type
