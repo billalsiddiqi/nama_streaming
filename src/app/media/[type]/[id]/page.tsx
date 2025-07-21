@@ -1,8 +1,5 @@
 import MediaDetailHeader from "@/components/MediaDetailsHeader";
 
-
-
-
 export default async function MediaDetailsPage() {
   
   return (
